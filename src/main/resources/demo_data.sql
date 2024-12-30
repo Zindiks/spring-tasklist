@@ -1,6 +1,7 @@
 insert into users (name, username, password)
 values ('John Doe', 'johndoe@gmail.com', '$2a$10$XZ0yhvzLIaJCDdKBSOLld.ksK7c2Zytg/ZKFdt[YYQUv8rUfvCR4W'),
-       ('Mike Smith', 'mikesmith@yahoo.com', '$2a$10$fFLij9aYgaNCFPTL9WcA/uoCRukxnwf.v0Q8nrEE0skгCNmGsxY7m');
+       ('Mike Smith', 'mikesmith@yahoo.com', '$2a$10$fFLij9aYgaNCFPTL9WcA/uoCRukxnwf.v0Q8nrEE0skгCNmGsxY7m')
+ON CONFLICT (username) DO NOTHING;
 
 insert into tasks (title, description, status, due_date)
 values ('Buy cheese', null, 'TODO', '2023-01-29 12:00:00'),

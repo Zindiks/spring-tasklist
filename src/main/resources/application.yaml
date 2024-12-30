@@ -8,4 +8,4 @@ spring:
     init:
       mode: always
       continue-on-error: false
-      data-locations: classpath:demo_data.sql
+#      data-locations: classpath:demo_data.sql
