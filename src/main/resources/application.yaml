@@ -1,3 +1,11 @@
 spring:
-  application:
-    name: tasklist
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tasklist
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      mode: always
+      continue-on-error: false
+      data-locations: classpath:demo_data.sql

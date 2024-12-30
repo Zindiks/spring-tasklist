@@ -1,6 +1,7 @@
 package tasklist.tasklist.controller;
 
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -19,17 +20,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Validated
 public class UserController {
 
+    private UserService userService;
+    private TaskService taskService;
 
-    private final UserService userService;
-    private final TaskService taskService;
-
-    private final UserMapper userMapper;
-    private final TaskMapper taskMapper;
-
+    private UserMapper userMapper;
+    private TaskMapper taskMapper;
 
 
     @PutMapping

@@ -4,13 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
-import tasklist.tasklist.domain.task.Task;
-import tasklist.tasklist.domain.user.Role;
+
 import tasklist.tasklist.web.dto.validation.OnCreate;
 import tasklist.tasklist.web.dto.validation.OnUpdate;
-
-import java.util.List;
-import java.util.Set;
 
 @Data
 public class UserDto {

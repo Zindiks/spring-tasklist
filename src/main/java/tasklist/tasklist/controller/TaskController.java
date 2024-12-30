@@ -1,6 +1,7 @@
 package tasklist.tasklist.controller;
 
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +17,10 @@ import tasklist.tasklist.web.mappers.TaskMapper;
 @Validated
 public class TaskController {
 
-    private final TaskService taskService;
+    private TaskService taskService;
+    private TaskMapper taskMapper;
 
-    private final TaskMapper taskMapper;
+
 
     @PutMapping
     public TaskDto update(@Validated(OnUpdate.class) @RequestBody TaskDto dto) {
