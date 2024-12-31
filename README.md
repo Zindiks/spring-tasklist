@@ -40,6 +40,16 @@ This project is a Tasklist application built using Spring Framework. It allows u
     ```
 2. The application will start on `http://localhost:8080`.
 
+## Application Configuration
+
+The application can be configured using the `application.properties` file located in the `src/main/resources` directory. Below are some of the key configuration properties:
+
+- `server.port` - The port on which the application will run (default is 8080)
+- `spring.datasource.url` - The URL of the database
+- `spring.datasource.username` - The database username
+- `spring.datasource.password` - The database password
+- `spring.jpa.hibernate.ddl-auto` - The database schema generation strategy (e.g., update, create, validate)
+
 ### API Endpoints
 
 - `POST /api/v1/auth/login` - User login
