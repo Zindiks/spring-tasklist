@@ -25,18 +25,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
 @RequiredArgsConstructor
 public class JwtTokenProvider {
 
-
     @Autowired
     private JwtProperties jwtProperties;
-
+    @Autowired
     private UserDetailsService userDetailsService;
-
+    @Autowired
     private UserService userService;
-
     private SecretKey key;
 
     @PostConstruct
@@ -44,8 +41,11 @@ public class JwtTokenProvider {
         this.key = Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes());
     }
 
-    public String createAccessToken(Long userId, String username, Set<Role> roles){
-        Claims claims = (Claims) Jwts.claims()
+    public String createAccessToken(
+            final Long userId,
+            final String username,
+            final Set<Role> roles){
+        Claims claims = Jwts.claims()
                 .subject(username)
                 .add("id", userId)
                 .add("roles", resolveRoles(roles))
@@ -72,7 +72,9 @@ public class JwtTokenProvider {
 
     }
 
-    public JwtResponse refreshUserTokens(String refreshToken){
+    public JwtResponse refreshUserTokens(
+            final String refreshToken
+    ){
         JwtResponse jwtResponse = new JwtResponse();
 
         if(!validateToken(refreshToken)){
