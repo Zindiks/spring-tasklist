@@ -7,6 +7,7 @@ import tasklist.tasklist.domain.task.Task;
 import java.util.List;
 import java.util.Set;
 
+
 @Data
 public class User {
 
@@ -17,7 +18,5 @@ public class User {
     private String passwordConfirmation;
     private Set<Role> roles;
     private List<Task> tasks;
-
-
 
 }

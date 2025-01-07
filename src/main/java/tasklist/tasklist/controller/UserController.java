@@ -49,7 +49,7 @@ public class UserController {
 
     @GetMapping("/{userId}/tasks")
     public List<TaskDto> getTasksByUserId(@PathVariable Long userId) {
-        return taskMapper.toDto(taskService.getByTasksUserId(userId));
+        return taskMapper.toDto(taskService.getAllTasksByUserId(userId));
     }
 
     @PostMapping("/{userId}/tasks")

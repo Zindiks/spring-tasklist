@@ -27,12 +27,15 @@
         <url/>
     </scm>
     <properties>
-        <java.version>21</java.version>
+        <java.version>17</java.version>
         <spring-boot.version>3.4.0</spring-boot.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <hibernate-validator.version>8.0.2.Final</hibernate-validator.version>
         <jakarta-validation.version>3.1.0</jakarta-validation.version>
-        <starter.security.version>3.3.6</starter.security.version>
+        <starter.security.version>3.4.0</starter.security.version>
+        <lombok.version>1.18.36</lombok.version>
+        <jwt.version>0.12.5</jwt.version>
+        <sptingdoc.version>2.7.0</sptingdoc.version>
     </properties>
 
     <dependencies>
@@ -74,8 +77,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.28</version>
-            <scope>provided</scope>
+            <version>${lombok.version}</version>
         </dependency>
 
         <dependency>
@@ -106,26 +108,26 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.7.0</version>
+            <version>${sptingdoc.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
-            <version>0.12.5</version>
+            <version>${jwt.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
-            <version>0.12.5</version>
+            <version>${jwt.version}</version>
             <scope>runtime</scope>
         </dependency>
 
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
-            <version>0.12.5</version>
+            <version>${jwt.version}</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -143,6 +145,13 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>

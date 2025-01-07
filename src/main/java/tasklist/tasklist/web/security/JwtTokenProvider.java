@@ -5,11 +5,12 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import tasklist.tasklist.domain.exception.AccessDeniedException;
 import tasklist.tasklist.domain.user.Role;
 import tasklist.tasklist.domain.user.User;
@@ -18,24 +19,25 @@ import tasklist.tasklist.service.props.JwtProperties;
 import tasklist.tasklist.web.dto.auth.JwtResponse;
 
 import javax.crypto.SecretKey;
-import java.security.Key;
 import java.util.Date;
 import java.util.Set;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+@Service
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class JwtTokenProvider {
 
 
+    @Autowired
     private JwtProperties jwtProperties;
 
     private UserDetailsService userDetailsService;
 
     private UserService userService;
 
-    private Key key;
+    private SecretKey key;
 
     @PostConstruct
     public void init(){
@@ -43,17 +45,27 @@ public class JwtTokenProvider {
     }
 
     public String createAccessToken(Long userId, String username, Set<Role> roles){
-        Claims claims = (Claims) Jwts.claims().subject(username);
-        claims.put("id",userId);
-        claims.put("roles", resolveRoles(roles));
+        Claims claims = (Claims) Jwts.claims()
+                .subject(username)
+                .add("id", userId)
+                .add("roles", resolveRoles(roles))
+                .build();
         Date now = new Date();
         Date validity = new Date(now.getTime() + jwtProperties.getAccess());
-        return Jwts.builder().claims(claims).issuedAt(now).expiration(validity).signWith(key).compact();
+        return Jwts
+                .builder()
+                .claims(claims)
+                .issuedAt(now)
+                .expiration(validity)
+                .signWith(key)
+                .compact();
     }
 
     public String createRefreshToken(Long userId,String username){
-        Claims claims = (Claims) Jwts.claims().subject(username);
-        claims.put("id",userId);
+        Claims claims = (Claims) Jwts
+                .claims()
+                .subject(username)
+                .add("id", userId);
         Date now = new Date();
         Date validity = new Date(now.getTime() + jwtProperties.getRefresh());
         return Jwts.builder().claims(claims).issuedAt(now).expiration(validity).signWith(key).compact();

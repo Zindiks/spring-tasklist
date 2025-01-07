@@ -16,7 +16,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> getByTasksUserId(Long id) {
+    public List<Task> getAllTasksByUserId(Long id) {
         return List.of();
     }
 

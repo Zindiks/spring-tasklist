@@ -13,7 +13,7 @@ This project is a Tasklist application built using Spring Framework. It allows u
 
 ### Prerequisites
 
-- Java 11 or higher
+- Java 17 or higher
 - Maven
 - Spring Boot
 

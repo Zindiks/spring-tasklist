@@ -1,8 +1,10 @@
 package tasklist.tasklist.web.dto.auth;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+
+@Getter
+@Setter
 public class JwtResponse {
 
     private Long id;

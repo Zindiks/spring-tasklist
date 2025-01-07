@@ -1,5 +1,9 @@
 package tasklist.tasklist.repository.impl;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import tasklist.tasklist.domain.user.Role;
 import tasklist.tasklist.domain.user.User;
@@ -7,8 +11,11 @@ import tasklist.tasklist.repository.UserRepository;
 
 import java.util.Optional;
 
+
 @Repository
 public class UserRepositoryImpl implements UserRepository {
+
+
     @Override
     public Optional<User> findById(Long id) {
         return Optional.empty();

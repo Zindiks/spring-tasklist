@@ -11,7 +11,6 @@ import tasklist.tasklist.web.dto.validation.OnUpdate;
 @Data
 public class UserDto {
 
-
     @NotNull(message = "Id is required", groups = {OnCreate.class})
     private Long id;
 
