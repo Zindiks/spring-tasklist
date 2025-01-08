@@ -7,13 +7,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import tasklist.tasklist.domain.user.Role;
 import tasklist.tasklist.domain.user.User;
+import tasklist.tasklist.repository.DataSourceConfig;
 import tasklist.tasklist.repository.UserRepository;
 
 import java.util.Optional;
 
 
 @Repository
+@RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
+
+    private final DataSourceConfig dataSourceConfig;
 
 
     @Override
