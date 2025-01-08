@@ -23,7 +23,6 @@ public class JwtTokenFilter extends GenericFilterBean {
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
-    @SneakyThrows
     public void doFilter(
             final ServletRequest servletRequest,
             final ServletResponse servletResponse,
@@ -34,18 +33,19 @@ public class JwtTokenFilter extends GenericFilterBean {
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             bearerToken = bearerToken.substring(7);
         }
-        try {
-            if (bearerToken != null
-                    && jwtTokenProvider.validateToken(bearerToken)) {
-                Authentication authentication
-                        = jwtTokenProvider.getAuthentication(bearerToken);
-                if (authentication != null) {
-                    SecurityContextHolder.getContext()
-                            .setAuthentication(authentication);
-                }
+
+        if (bearerToken != null
+                && jwtTokenProvider.isValid(bearerToken)) {
+            try{
+            Authentication authentication = jwtTokenProvider.getAuthentication(bearerToken);
+            if (authentication != null) {
+                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
-        } catch (Exception ignored) {
+
+            } catch (ResourceNotFoundException ignored) {
+            }
         }
+
         filterChain.doFilter(servletRequest, servletResponse);
     }
 

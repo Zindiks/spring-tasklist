@@ -32,13 +32,28 @@ public class AuthServiceImpl implements AuthService {
         log.info("Login request: {}", loginRequest);
 
         JwtResponse jwtResponse = new JwtResponse();
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+
+
+        // blocker
+//        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+
+
+
+
+
+
 
         User user = userService.getByUsername(loginRequest.getUsername());
-        jwtResponse.setUsername(user.getUsername());
+
+        log.info("User request: {}", user);
+
         jwtResponse.setId(user.getId());
+        jwtResponse.setUsername(user.getUsername());
         jwtResponse.setAccessToken(jwtTokenProvider.createAccessToken(user.getId(), user.getUsername(), user.getRoles()));
         jwtResponse.setRefreshToken(jwtTokenProvider.createRefreshToken(user.getId(), user.getUsername()));
+
+
+        log.info("JWTREspomse {}", jwtResponse);
 
         return jwtResponse;
 
