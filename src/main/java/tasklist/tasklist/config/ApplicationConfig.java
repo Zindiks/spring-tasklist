@@ -51,7 +51,6 @@ public class ApplicationConfig {
         http.httpBasic(AbstractHttpConfigurer::disable);
         http.sessionManagement(sessionManagement ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
         http.authorizeHttpRequests(configurer ->
                         configurer.requestMatchers("/api/v1/auth/**").permitAll()
                                 .requestMatchers("/swagger-ui/**").permitAll()

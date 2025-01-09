@@ -17,3 +17,6 @@ security:
 
 server:
   port: 8080
+#mybatis:
+#  mapper-locations: classpath:mybatis/mapper/*.xml
+#  type-aliases-package: tasklist.tasklist.domain
