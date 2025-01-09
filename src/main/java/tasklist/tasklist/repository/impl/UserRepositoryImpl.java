@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import tasklist.tasklist.domain.exception.ResourceMappingException;
 import tasklist.tasklist.domain.user.Role;
@@ -19,6 +20,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
@@ -96,6 +98,9 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void update(User user) {
+
+        log.info("user Repository: {}",user);
+
         try{
             Connection connection = dataSourceConfig.getConnection();
             String UPDATE = """
@@ -111,6 +116,7 @@ public class UserRepositoryImpl implements UserRepository {
             statement.setString(2,user.getUsername());
             statement.setString(3, user.getPassword());
             statement.setLong(4, user.getId());
+            statement.executeUpdate();
 
         } catch (SQLException e) {
             throw new ResourceMappingException("Error while updating user");

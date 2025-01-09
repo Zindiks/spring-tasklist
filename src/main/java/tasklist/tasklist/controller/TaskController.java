@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import tasklist.tasklist.domain.task.Task;
 import tasklist.tasklist.service.TaskService;
 import tasklist.tasklist.web.dto.task.TaskDto;
+import tasklist.tasklist.web.dto.validation.OnCreate;
 import tasklist.tasklist.web.dto.validation.OnUpdate;
 import tasklist.tasklist.web.mappers.TaskMapper;
 
@@ -16,8 +17,8 @@ import tasklist.tasklist.web.mappers.TaskMapper;
 @Validated
 public class TaskController {
 
-    private TaskService taskService;
-    private TaskMapper taskMapper;
+    private final TaskService taskService;
+    private final TaskMapper taskMapper;
 
 
 
@@ -27,6 +28,7 @@ public class TaskController {
         return taskMapper.toDto(updatedTask);
 
     }
+
 
     @GetMapping("/{id}")
     public TaskDto getById(@PathVariable Long id) {

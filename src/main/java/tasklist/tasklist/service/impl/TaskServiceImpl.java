@@ -11,6 +11,8 @@ import tasklist.tasklist.repository.TaskRepository;
 import tasklist.tasklist.repository.UserRepository;
 import tasklist.tasklist.service.TaskService;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 
@@ -47,6 +49,10 @@ public class TaskServiceImpl implements TaskService {
     @Transactional
     public Task create(Task task, Long userId){
         task.setStatus(Status.TODO);
+
+        if (task.getDueDate() == null){
+            task.setDueDate(LocalDateTime.now().plusWeeks(1));
+        }
         taskRepository.create(task);
         taskRepository.assignToUserById(task.getId(),userId);
         return task;

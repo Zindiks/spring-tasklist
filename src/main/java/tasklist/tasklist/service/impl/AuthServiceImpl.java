@@ -2,6 +2,7 @@ package tasklist.tasklist.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -33,15 +34,7 @@ public class AuthServiceImpl implements AuthService {
 
         JwtResponse jwtResponse = new JwtResponse();
 
-
-        // blocker
-//        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-
-
-
-
-
-
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         User user = userService.getByUsername(loginRequest.getUsername());
 
@@ -52,11 +45,7 @@ public class AuthServiceImpl implements AuthService {
         jwtResponse.setAccessToken(jwtTokenProvider.createAccessToken(user.getId(), user.getUsername(), user.getRoles()));
         jwtResponse.setRefreshToken(jwtTokenProvider.createRefreshToken(user.getId(), user.getUsername()));
 
-
-        log.info("JWTREspomse {}", jwtResponse);
-
         return jwtResponse;
-
 
     }
 

@@ -143,8 +143,6 @@ public class JwtTokenProvider {
     }
 
 
-
-
     private List<String> resolveRoles(
             final Set<Role> roles
     ) {

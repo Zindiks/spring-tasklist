@@ -1,6 +1,7 @@
 package tasklist.tasklist.web.dto.task;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -14,9 +15,10 @@ import java.time.LocalDateTime;
 @Data
 public class TaskDto {
 
-    @NotNull(message = "Id is required", groups = {OnCreate.class})
+    @NotNull(message = "Id is required", groups = {OnUpdate.class})
     private Long id;
 
+    @NotBlank(message = "Title is required")
     @NotNull(message = "Title is required", groups = {OnCreate.class, OnUpdate.class})
     @Length(min = 3, max = 255, message = "Title must be between 3 and 255 characters", groups = {OnCreate.class, OnUpdate.class})
     private String title;

@@ -129,7 +129,6 @@ public class TaskRepositoryImpl implements TaskRepository {
 
     @Override
     public void create(Task task) {
-
         try{
             Connection connection = dataSourceConfig.getConnection();
 

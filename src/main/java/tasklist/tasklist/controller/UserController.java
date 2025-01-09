@@ -2,6 +2,7 @@ package tasklist.tasklist.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tasklist.tasklist.domain.task.Task;
@@ -17,27 +18,31 @@ import tasklist.tasklist.web.mappers.UserMapper;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 @Validated
 public class UserController {
 
-    private UserService userService;
-    private TaskService taskService;
+    private final UserService userService;
+    private final TaskService taskService;
 
-    private UserMapper userMapper;
-    private TaskMapper taskMapper;
+    private final UserMapper userMapper;
+    private final TaskMapper taskMapper;
 
 
     @PutMapping
     public UserDto update(@Validated(OnUpdate.class) @RequestBody UserDto userDto) {
+
         User updatedUser = userService.update(userMapper.toEntity(userDto));
         return userMapper.toDto(updatedUser);
     }
 
     @GetMapping("/{id}")
     public UserDto getById(@PathVariable Long id) {
+
+        log.info("HERE IS ID {}",id);
         User user = userService.getById(id);
         return userMapper.toDto(user);
     }
