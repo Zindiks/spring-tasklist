@@ -27,7 +27,6 @@ import tasklist.tasklist.web.security.JwtTokenProvider;
 @RequiredArgsConstructor(onConstructor = @__(@Lazy))
 public class ApplicationConfig {
 
-
     private final JwtTokenFilter jwtTokenFilter;
 
     @Bean

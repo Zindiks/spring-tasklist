@@ -6,6 +6,7 @@ import tasklist.tasklist.domain.user.User;
 import tasklist.tasklist.web.dto.user.UserDto;
 
 @Mapper(componentModel = "spring")
+@Component
 public interface UserMapper {
 
     UserDto toDto(User user);

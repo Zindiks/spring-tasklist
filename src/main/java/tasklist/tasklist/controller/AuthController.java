@@ -2,7 +2,6 @@ package tasklist.tasklist.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,26 +24,19 @@ public class AuthController {
     private final UserService userService;
     private final UserMapper userMapper;
 
-
-
     @PostMapping("/login")
     public JwtResponse login(@Validated @RequestBody JwtRequest loginRequest){
         return authService.login(loginRequest);
     }
-
 
     @PostMapping("/register")
     public UserDto register(@Validated @RequestBody UserDto userDto){
         return userMapper.toDto(userService.create(userMapper.toEntity(userDto)));
     }
 
-
     @PostMapping("/refresh")
     public JwtResponse refresh(@RequestBody String refreshToken){
         return authService.refresh(refreshToken);
     }
-
-
-
 
 }

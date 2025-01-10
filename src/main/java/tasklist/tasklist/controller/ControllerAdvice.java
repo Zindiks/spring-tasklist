@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class ControllerAdvice {
 
-
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ExceptionBody handleResourceNotFound(ResourceNotFoundException e){
