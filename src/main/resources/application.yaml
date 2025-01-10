@@ -9,6 +9,10 @@ spring:
       mode: always
       continue-on-error: false
 #      data-locations: classpath:demo_data.sql
+  liquibase:
+    change-log: classpath:liquibase/db.changelog.yaml
+    enabled: true
+    default-schema: public
 security:
   jwt:
     secret: c2VjcmV0LWJhc2U2NGFzZGFzZGFkYXNkYXNkYXNkd3F3YzMvQDNjY2FzZA==

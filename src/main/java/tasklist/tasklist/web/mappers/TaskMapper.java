@@ -9,6 +9,7 @@ import tasklist.tasklist.web.dto.task.TaskDto;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
+@Component
 public interface TaskMapper {
 
     TaskDto toDto(Task task);
