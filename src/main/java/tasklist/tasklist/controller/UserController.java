@@ -43,7 +43,6 @@ public class UserController {
     @GetMapping("/{id}")
     public UserDto getById(@PathVariable Long id) {
 
-        log.info("HERE IS ID {}",id);
         User user = userService.getById(id);
         return userMapper.toDto(user);
     }

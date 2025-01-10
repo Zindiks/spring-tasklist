@@ -12,7 +12,7 @@ import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+//@Repository
 @RequiredArgsConstructor
 public class TaskRepositoryImpl implements TaskRepository {
 
@@ -112,7 +112,7 @@ public class TaskRepositoryImpl implements TaskRepository {
             if(task.getDueDate() == null){
                 statement.setNull(3,Types.TIMESTAMP);
             }else{
-                statement.setTimestamp(3, Timestamp.valueOf(task.getDueDate()));
+                statement.setTimestamp(3, Timestamp.valueOf(task.getDueDate().atStartOfDay()));
             }
 
             statement.setString(4, task.getStatus().name());
@@ -148,7 +148,7 @@ public class TaskRepositoryImpl implements TaskRepository {
             if(task.getDueDate() == null){
                 statement.setNull(3,Types.TIMESTAMP);
             }else{
-                statement.setTimestamp(3, Timestamp.valueOf(task.getDueDate()));
+                statement.setTimestamp(3, Timestamp.valueOf(task.getDueDate().atStartOfDay()));
             }
             statement.setString(4, task.getStatus().name());
             statement.executeUpdate();
