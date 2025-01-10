@@ -46,7 +46,7 @@
         WHERE u.id = #{id}
     </select>
 
-    <select id="findByUsername" resultMap="userResultMap">
+    <select id="findByUsername" resultMap="UserResultMap">
         SELECT
         u.id as user_id,
         u.name as user_name,

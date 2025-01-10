@@ -70,7 +70,7 @@ public class ControllerAdvice {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ExceptionBody handleException(Exception e){
-        return new ExceptionBody("Internal error");
+        return new ExceptionBody(e.getMessage());
     }
 
 }

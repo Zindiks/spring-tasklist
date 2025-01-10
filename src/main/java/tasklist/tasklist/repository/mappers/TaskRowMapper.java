@@ -6,6 +6,7 @@ import tasklist.tasklist.domain.task.Task;
 
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class TaskRowMapper {
             task.setStatus(Status.valueOf(resultSet.getString("task_status")));
             Timestamp timestamp = resultSet.getTimestamp("task_due_date");
             if(timestamp != null){
-                task.setDueDate(resultSet.getTimestamp("task_due_date").toLocalDateTime());
+                task.setDueDate(LocalDate.from(resultSet.getTimestamp("task_due_date").toLocalDateTime()));
             }
             return task;
         }
@@ -41,7 +42,7 @@ public class TaskRowMapper {
                 task.setStatus(Status.valueOf(resultSet.getString("task_status")));
                 Timestamp timestamp = resultSet.getTimestamp("task_due_date");
                 if(timestamp != null){
-                    task.setDueDate(resultSet.getTimestamp("task_due_date").toLocalDateTime());
+                    task.setDueDate(LocalDate.from(resultSet.getTimestamp("task_due_date").toLocalDateTime()));
                 }
                 tasks.add(task);
             }

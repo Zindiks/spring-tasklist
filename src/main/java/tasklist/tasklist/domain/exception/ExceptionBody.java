@@ -20,8 +20,6 @@ public class ExceptionBody{
     }
 
 
-
-
-
-
+    public ExceptionBody(String message, String message1) {
+    }
 }

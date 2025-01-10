@@ -3,7 +3,8 @@ package tasklist.tasklist.domain.task;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+//import java.time.LocalDateTime;
 
 @Data
 public class Task {
@@ -12,6 +13,6 @@ public class Task {
     private String title;
     private String description;
     private Status status;
-    private LocalDateTime dueDate;
+    private LocalDate dueDate;
 
 }
