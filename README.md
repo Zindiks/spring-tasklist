@@ -21,11 +21,11 @@ This project is a Tasklist application built using Spring Framework. It allows u
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/tasklist.git
+    git clone https://github.com/Zindiks/spring-tasklist
     ```
 2. Navigate to the project directory:
     ```sh
-    cd tasklist
+    cd spring-tasklist
     ```
 3. Build the project using Maven:
     ```sh
@@ -37,6 +37,29 @@ This project is a Tasklist application built using Spring Framework. It allows u
 1. Run the Spring Boot application:
     ```sh
     mvn spring-boot:run
+    ```
+2. The application will start on `http://localhost:8080`.
+
+## Running with Docker
+
+You can also run the application using Docker and Docker Compose.
+
+### Using Docker
+
+1. Build the Docker image:
+    ```sh
+    docker build -t tasklist:latest .
+    ```
+2. Run the Docker container:
+    ```sh
+    docker run -p 8080:8080 tasklist:latest
+    ```
+
+### Using Docker Compose
+
+1. Start the application with Docker Compose:
+    ```sh
+    docker-compose up --build
     ```
 2. The application will start on `http://localhost:8080`.
 
@@ -63,10 +86,10 @@ The application can be configured using the `application.properties` file locate
 - `PUT /api/v1/tasks` - Update task
 - `DELETE /api/v1/tasks/{id}` - Delete task
 
-### Contributing
+<!-- ### Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request for any changes.
 
 ### License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License. -->
