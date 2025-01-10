@@ -1,6 +1,7 @@
 package tasklist.tasklist.web.security.expression;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,14 +10,17 @@ import tasklist.tasklist.domain.user.Role;
 import tasklist.tasklist.service.UserService;
 import tasklist.tasklist.web.security.JwtEntity;
 
-@Service("customSecurityExpression")
+@Slf4j @Service("customSecurityExpression")
 @RequiredArgsConstructor
 public class CustomSecurityExpression {
 
     private final UserService userService;
 
     public boolean canAccessUser(Long id) {
+
+        log.info("canAccessUser");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
 
         JwtEntity user = (JwtEntity) authentication.getPrincipal();
 

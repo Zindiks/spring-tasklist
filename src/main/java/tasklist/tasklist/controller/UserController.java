@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tasklist.tasklist.domain.task.Task;
@@ -37,6 +38,7 @@ public class UserController {
 
     @PutMapping
     @Operation(summary = "Update user")
+    @PreAuthorize("@customSecurityExpression.canAccessUser(#id)")
     public UserDto update(@Validated(OnUpdate.class) @RequestBody UserDto userDto) {
 
         User updatedUser = userService.update(userMapper.toEntity(userDto));
@@ -45,6 +47,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get user by id")
+    @PreAuthorize("@customSecurityExpression.canAccessUser(#id)")
     public UserDto getById(@PathVariable Long id) {
 
         User user = userService.getById(id);
@@ -53,18 +56,21 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete user by id")
+    @PreAuthorize("@customSecurityExpression.canAccessUser(#id)")
     public void deleteById(@PathVariable Long id) {
         userService.delete(id);
     }
 
     @GetMapping("/{userId}/tasks")
     @Operation(summary = "Get tasks by user id")
+    @PreAuthorize("@customSecurityExpression.canAccessUser(#id)")
     public List< TaskDto > getTasksByUserId(@PathVariable Long userId) {
         return taskMapper.toDto(taskService.getAllTasksByUserId(userId));
     }
 
     @PostMapping("/{userId}/tasks")
     @Operation(summary = "Create task for user")
+    @PreAuthorize("@customSecurityExpression.canAccessUser(#id)")
     public TaskDto createTask(@PathVariable Long userId, @Validated(OnCreate.class) @RequestBody TaskDto taskDto) {
         Task task = taskMapper.toEntity(taskDto);
         Task createdTask = taskService.create(task, userId);

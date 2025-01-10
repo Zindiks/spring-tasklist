@@ -41,7 +41,7 @@ public class ControllerAdvice {
 
     @ExceptionHandler({AccessDeniedException.class, org.springframework.security.access.AccessDeniedException.class})
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ExceptionBody handleAccessDenied(AccessDeniedException e) {
+    public ExceptionBody handleAccessDenied(Exception e) {
         return new ExceptionBody("Access denied");
     }
 
@@ -73,6 +73,7 @@ public class ControllerAdvice {
     public ExceptionBody handleAuthentication(AuthenticationException e) {
         return new ExceptionBody("Authentication failed");
     }
+
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
