@@ -13,7 +13,7 @@ public class DataSourceConfig {
 
     private final DataSource dataSource;
 
-    public Connection getConnection(){
+    public Connection getConnection() {
         return DataSourceUtils.getConnection(dataSource);
     }
 

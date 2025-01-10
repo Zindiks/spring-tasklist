@@ -14,14 +14,14 @@ public class TaskRowMapper {
 
     @SneakyThrows
     public static Task mapRow(ResultSet resultSet) {
-        if(resultSet.next()){
+        if (resultSet.next()) {
             Task task = new Task();
             task.setId(resultSet.getLong("task_id"));
             task.setTitle(resultSet.getString("task_title"));
             task.setDescription(resultSet.getString("task_description"));
             task.setStatus(Status.valueOf(resultSet.getString("task_status")));
             Timestamp timestamp = resultSet.getTimestamp("task_due_date");
-            if(timestamp != null){
+            if (timestamp != null) {
                 task.setDueDate(LocalDate.from(resultSet.getTimestamp("task_due_date").toLocalDateTime()));
             }
             return task;
@@ -33,15 +33,15 @@ public class TaskRowMapper {
     @SneakyThrows
     public static List<Task> mapRows(ResultSet resultSet) {
         List<Task> tasks = new ArrayList<>();
-        while(resultSet.next()){
+        while (resultSet.next()) {
             Task task = new Task();
             task.setId(resultSet.getLong("task_id"));
-            if(!resultSet.wasNull()){
+            if (!resultSet.wasNull()) {
                 task.setTitle(resultSet.getString("task_title"));
                 task.setDescription(resultSet.getString("task_description"));
                 task.setStatus(Status.valueOf(resultSet.getString("task_status")));
                 Timestamp timestamp = resultSet.getTimestamp("task_due_date");
-                if(timestamp != null){
+                if (timestamp != null) {
                     task.setDueDate(LocalDate.from(resultSet.getTimestamp("task_due_date").toLocalDateTime()));
                 }
                 tasks.add(task);

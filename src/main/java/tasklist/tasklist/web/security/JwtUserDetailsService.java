@@ -12,7 +12,6 @@ import tasklist.tasklist.service.UserService;
 @RequiredArgsConstructor
 public class JwtUserDetailsService implements UserDetailsService {
 
-
     private final UserService userService;
 
     @Override

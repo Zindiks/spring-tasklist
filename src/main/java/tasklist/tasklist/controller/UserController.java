@@ -1,9 +1,10 @@
 package tasklist.tasklist.controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tasklist.tasklist.domain.task.Task;
@@ -24,6 +25,7 @@ import java.util.List;
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 @Validated
+@Tag(name = "User Controller")
 public class UserController {
 
     private final UserService userService;
@@ -34,6 +36,7 @@ public class UserController {
 
 
     @PutMapping
+    @Operation(summary = "Update user")
     public UserDto update(@Validated(OnUpdate.class) @RequestBody UserDto userDto) {
 
         User updatedUser = userService.update(userMapper.toEntity(userDto));
@@ -41,6 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get user by id")
     public UserDto getById(@PathVariable Long id) {
 
         User user = userService.getById(id);
@@ -48,19 +52,22 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete user by id")
     public void deleteById(@PathVariable Long id) {
         userService.delete(id);
     }
 
     @GetMapping("/{userId}/tasks")
-    public List<TaskDto> getTasksByUserId(@PathVariable Long userId) {
+    @Operation(summary = "Get tasks by user id")
+    public List< TaskDto > getTasksByUserId(@PathVariable Long userId) {
         return taskMapper.toDto(taskService.getAllTasksByUserId(userId));
     }
 
     @PostMapping("/{userId}/tasks")
-    public TaskDto createTask(@PathVariable Long userId, @Validated(OnCreate.class) @RequestBody TaskDto taskDto){
+    @Operation(summary = "Create task for user")
+    public TaskDto createTask(@PathVariable Long userId, @Validated(OnCreate.class) @RequestBody TaskDto taskDto) {
         Task task = taskMapper.toEntity(taskDto);
-        Task createdTask = taskService.create(task,userId);
+        Task createdTask = taskService.create(task, userId);
         return taskMapper.toDto(createdTask);
     }
 

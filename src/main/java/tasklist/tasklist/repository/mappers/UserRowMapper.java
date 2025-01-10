@@ -13,16 +13,16 @@ import java.util.Set;
 
 public class UserRowMapper {
     @SneakyThrows
-    public static User mapRow(ResultSet resultSet){
+    public static User mapRow(ResultSet resultSet) {
         Set<Role> roles = new HashSet<>();
-        while(resultSet.next()){
+        while (resultSet.next()) {
             roles.add(Role.valueOf(resultSet.getString("user_role_role")));
         }
 
         resultSet.beforeFirst();
         List<Task> tasks = TaskRowMapper.mapRows(resultSet);
         resultSet.beforeFirst();
-        if(resultSet.next()){
+        if (resultSet.next()) {
             User user = new User();
             user.setId(resultSet.getLong("user_id"));
             user.setName(resultSet.getString("user_name"));

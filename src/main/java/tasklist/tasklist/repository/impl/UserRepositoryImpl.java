@@ -1,11 +1,7 @@
 package tasklist.tasklist.repository.impl;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Repository;
 import tasklist.tasklist.domain.exception.ResourceMappingException;
 import tasklist.tasklist.domain.user.Role;
 import tasklist.tasklist.domain.user.User;
@@ -29,7 +25,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<User> findById(Long id) {
-        try{
+        try {
             Connection connection = dataSourceConfig.getConnection();
             String FIND_BY_ID = """
                     SELECT
@@ -49,10 +45,10 @@ public class UserRepositoryImpl implements UserRepository {
                         LEFT JOIN tasks t on ut.task_id = t.id
                     WHERE u.id = ?
                     """;
-            PreparedStatement statement = connection.prepareStatement(FIND_BY_ID,ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            PreparedStatement statement = connection.prepareStatement(FIND_BY_ID, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-            statement.setLong(1,id);
-            try(ResultSet rs = statement.executeQuery()){
+            statement.setLong(1, id);
+            try (ResultSet rs = statement.executeQuery()) {
                 return Optional.ofNullable(UserRowMapper.mapRow(rs));
             }
 
@@ -63,7 +59,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<User> findByUsername(String username) {
-        try{
+        try {
             Connection connection = dataSourceConfig.getConnection();
 
             String FIND_BY_USERNAME = """
@@ -84,10 +80,10 @@ public class UserRepositoryImpl implements UserRepository {
                         LEFT JOIN tasks t on ut.task_id = t.id
                     WHERE u.username = ?
                     """;
-            PreparedStatement statement = connection.prepareStatement(FIND_BY_USERNAME,ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            PreparedStatement statement = connection.prepareStatement(FIND_BY_USERNAME, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-            statement.setString(1,username);
-            try(ResultSet rs = statement.executeQuery()){
+            statement.setString(1, username);
+            try (ResultSet rs = statement.executeQuery()) {
                 return Optional.ofNullable(UserRowMapper.mapRow(rs));
             }
 
@@ -99,9 +95,9 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void update(User user) {
 
-        log.info("user Repository: {}",user);
+        log.info("user Repository: {}", user);
 
-        try{
+        try {
             Connection connection = dataSourceConfig.getConnection();
             String UPDATE = """
                     UPDATE users
@@ -113,7 +109,7 @@ public class UserRepositoryImpl implements UserRepository {
             PreparedStatement statement = connection.prepareStatement(UPDATE);
 
             statement.setString(1, user.getName());
-            statement.setString(2,user.getUsername());
+            statement.setString(2, user.getUsername());
             statement.setString(3, user.getPassword());
             statement.setLong(4, user.getId());
             statement.executeUpdate();
@@ -126,7 +122,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void create(User user) {
-        try{
+        try {
             Connection connection = dataSourceConfig.getConnection();
             String CREATE = """
                     INSERT INTO users (name,username,password)
@@ -135,11 +131,11 @@ public class UserRepositoryImpl implements UserRepository {
             PreparedStatement statement = connection.prepareStatement(CREATE, PreparedStatement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, user.getName());
-            statement.setString(2,user.getUsername());
+            statement.setString(2, user.getUsername());
             statement.setString(3, user.getPassword());
             statement.executeUpdate();
 
-            try(ResultSet rs = statement.getGeneratedKeys()){
+            try (ResultSet rs = statement.getGeneratedKeys()) {
                 rs.next();
                 user.setId(rs.getLong(1));
             }
@@ -152,7 +148,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void insertUserRole(Long id, Role role) {
-        try{
+        try {
             Connection connection = dataSourceConfig.getConnection();
             String INSERT_USER_ROLE = """
                     INSERT INTO users_roles (user_id, role)
@@ -161,7 +157,7 @@ public class UserRepositoryImpl implements UserRepository {
             PreparedStatement statement = connection.prepareStatement(INSERT_USER_ROLE);
 
             statement.setLong(1, id);
-            statement.setString(2,role.name());
+            statement.setString(2, role.name());
             statement.executeUpdate();
 
         } catch (SQLException e) {
@@ -172,7 +168,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public boolean isTaskOwner(Long id, Long taskId) {
-        try{
+        try {
             Connection connection = dataSourceConfig.getConnection();
 
             String IS_TASK_OWNER = """
@@ -187,7 +183,7 @@ public class UserRepositoryImpl implements UserRepository {
 
             statement.setLong(1, id);
             statement.setLong(2, taskId);
-            try (ResultSet rs = statement.executeQuery()){
+            try (ResultSet rs = statement.executeQuery()) {
                 rs.next();
                 return rs.getBoolean(1);
             }
@@ -200,7 +196,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void delete(Long id) {
 
-        try{
+        try {
             Connection connection = dataSourceConfig.getConnection();
             String DELETE = """
                     DELETE FROM users

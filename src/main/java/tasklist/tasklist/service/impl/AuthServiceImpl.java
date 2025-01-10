@@ -24,15 +24,12 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
 
 
-
-
     @Override
     public JwtResponse login(JwtRequest loginRequest) {
 
         log.info("Login request: {}", loginRequest);
 
         JwtResponse jwtResponse = new JwtResponse();
-
 
 
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -50,6 +47,7 @@ public class AuthServiceImpl implements AuthService {
         return jwtResponse;
 
     }
+
 
     @Override
     public JwtResponse refresh(String refreshToken) {
