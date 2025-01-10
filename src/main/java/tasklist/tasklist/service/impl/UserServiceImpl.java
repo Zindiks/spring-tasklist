@@ -22,13 +22,13 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public User getById(Long id) {
-        return userRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found"));
+        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     @Override
     @Transactional(readOnly = true)
     public User getByUsername(String username) {
-        return userRepository.findByUsername(username).orElseThrow(()->new ResourceNotFoundException("User not found"));
+        return userRepository.findByUsername(username).orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
     }
 
@@ -44,17 +44,17 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User create(User user) {
 
-        if(userRepository.findByUsername(user.getUsername()).isPresent()){
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             throw new IllegalStateException("User already exists");
         }
 
-        if(!user.getPassword().equals(user.getPasswordConfirmation())){
+        if (!user.getPassword().equals(user.getPasswordConfirmation())) {
             throw new IllegalStateException("password and password confirmation do not match");
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.create(user);
-        Set<Role> roles = Set.of(Role.ROLE_USER);
+        Set< Role > roles = Set.of(Role.ROLE_USER);
         userRepository.insertUserRole(user.getId(), Role.ROLE_USER);
         user.setRoles(roles);
         return user;
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public boolean isTaskOwner(Long userId, Long taskId) {
-        return userRepository.isTaskOwner(userId,taskId);
+        return userRepository.isTaskOwner(userId, taskId);
     }
 
     @Override
