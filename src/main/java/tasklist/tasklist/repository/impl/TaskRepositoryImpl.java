@@ -1,7 +1,6 @@
 package tasklist.tasklist.repository.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 import tasklist.tasklist.domain.exception.ResourceMappingException;
 import tasklist.tasklist.domain.task.Task;
 import tasklist.tasklist.repository.DataSourceConfig;
@@ -21,7 +20,7 @@ public class TaskRepositoryImpl implements TaskRepository {
 
     @Override
     public Optional<Task> findById(Long id) {
-        try{
+        try {
             Connection connection = dataSourceConfig.getConnection();
             String FIND_BY_ID = """
                     SELECT t.id as task_id,
@@ -33,8 +32,8 @@ public class TaskRepositoryImpl implements TaskRepository {
                     WHERE id = ?
                     """;
             PreparedStatement statement = connection.prepareStatement(FIND_BY_ID);
-            statement.setLong(1,id);
-            try (ResultSet rs = statement.executeQuery()){
+            statement.setLong(1, id);
+            try (ResultSet rs = statement.executeQuery()) {
                 return Optional.ofNullable(TaskRowMapper.mapRow(rs));
             }
 
@@ -45,7 +44,7 @@ public class TaskRepositoryImpl implements TaskRepository {
 
     @Override
     public List<Task> findAllByUserId(Long userId) {
-        try{
+        try {
             Connection connection = dataSourceConfig.getConnection();
             String FIND_ALL_BY_USER_ID = """
                     SELECT
@@ -59,8 +58,8 @@ public class TaskRepositoryImpl implements TaskRepository {
                     WHERE ut.user_id = ?
                     """;
             PreparedStatement statement = connection.prepareStatement(FIND_ALL_BY_USER_ID);
-            statement.setLong(1,userId);
-            try (ResultSet rs = statement.executeQuery()){
+            statement.setLong(1, userId);
+            try (ResultSet rs = statement.executeQuery()) {
                 return TaskRowMapper.mapRows(rs);
             }
 
@@ -72,15 +71,15 @@ public class TaskRepositoryImpl implements TaskRepository {
 
     @Override
     public void assignToUserById(Long taskId, Long userId) {
-        try{
+        try {
             Connection connection = dataSourceConfig.getConnection();
             String ASSIGN = """
                     INSERT INTO users_tasks (task_id, user_id)
                     VALUES (?,?)
                     """;
             PreparedStatement statement = connection.prepareStatement(ASSIGN);
-            statement.setLong(1,taskId);
-            statement.setLong(2,userId);
+            statement.setLong(1, taskId);
+            statement.setLong(2, userId);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new ResourceMappingException("Error to assign task to user");
@@ -90,7 +89,7 @@ public class TaskRepositoryImpl implements TaskRepository {
 
     @Override
     public void update(Task task) {
-        try{
+        try {
             Connection connection = dataSourceConfig.getConnection();
             String UPDATE = """
                     UPDATE tasks
@@ -102,16 +101,16 @@ public class TaskRepositoryImpl implements TaskRepository {
                     """;
             PreparedStatement statement = connection.prepareStatement(UPDATE);
 
-            statement.setString(1,task.getTitle());
-            if(task.getDescription() == null){
-                statement.setNull(2,Types.VARCHAR);
-            }else{
-                statement.setString(2,task.getDescription());
+            statement.setString(1, task.getTitle());
+            if (task.getDescription() == null) {
+                statement.setNull(2, Types.VARCHAR);
+            } else {
+                statement.setString(2, task.getDescription());
             }
 
-            if(task.getDueDate() == null){
-                statement.setNull(3,Types.TIMESTAMP);
-            }else{
+            if (task.getDueDate() == null) {
+                statement.setNull(3, Types.TIMESTAMP);
+            } else {
                 statement.setTimestamp(3, Timestamp.valueOf(task.getDueDate().atStartOfDay()));
             }
 
@@ -129,7 +128,7 @@ public class TaskRepositoryImpl implements TaskRepository {
 
     @Override
     public void create(Task task) {
-        try{
+        try {
             Connection connection = dataSourceConfig.getConnection();
 
             String CREATE = """
@@ -138,22 +137,22 @@ public class TaskRepositoryImpl implements TaskRepository {
                     """;
             PreparedStatement statement = connection.prepareStatement(CREATE, PreparedStatement.RETURN_GENERATED_KEYS);
 
-            statement.setString(1,task.getTitle());
-            if(task.getDescription() == null){
-                statement.setNull(2,Types.VARCHAR);
-            }else{
-                statement.setString(2,task.getDescription());
+            statement.setString(1, task.getTitle());
+            if (task.getDescription() == null) {
+                statement.setNull(2, Types.VARCHAR);
+            } else {
+                statement.setString(2, task.getDescription());
             }
 
-            if(task.getDueDate() == null){
-                statement.setNull(3,Types.TIMESTAMP);
-            }else{
+            if (task.getDueDate() == null) {
+                statement.setNull(3, Types.TIMESTAMP);
+            } else {
                 statement.setTimestamp(3, Timestamp.valueOf(task.getDueDate().atStartOfDay()));
             }
             statement.setString(4, task.getStatus().name());
             statement.executeUpdate();
 
-            try(ResultSet rs = statement.getGeneratedKeys()){
+            try (ResultSet rs = statement.getGeneratedKeys()) {
                 rs.next();
                 task.setId(rs.getLong(1));
             }
@@ -167,7 +166,7 @@ public class TaskRepositoryImpl implements TaskRepository {
     @Override
     public void delete(Long id) {
 
-        try{
+        try {
             Connection connection = dataSourceConfig.getConnection();
 
             String DELETE = """
@@ -176,7 +175,7 @@ public class TaskRepositoryImpl implements TaskRepository {
                     """;
             PreparedStatement statement = connection.prepareStatement(DELETE);
 
-            statement.setLong(1,id);
+            statement.setLong(1, id);
             statement.executeUpdate();
 
         } catch (SQLException e) {

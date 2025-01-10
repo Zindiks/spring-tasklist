@@ -15,8 +15,11 @@ public interface TaskRepository {
     List<Task> findAllByUserId(Long userId);
 
     void assignToUserById(@Param("taskId") Long taskId, @Param("userId") Long userId);
+
     void update(Task task);
+
     void create(Task task);
+
     void delete(Long id);
 
 }
