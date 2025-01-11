@@ -1,4 +1,12 @@
 spring:
+  cache:
+    type: redis
+    cache-names: redis-cache
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: cGFzc3dvcmQ=
   datasource:
     url: jdbc:postgresql://localhost:5432/tasklist
     username: postgres
@@ -12,7 +20,7 @@ spring:
   liquibase:
     change-log: classpath:liquibase/db.changelog.yaml
     enabled: true
-    default-schema: public
+    default-schema: tasklist
 security:
   jwt:
     secret: c2VjcmV0LWJhc2U2NGFzZGFzZGFkYXNkYXNkYXNkd3F3YzMvQDNjY2FzZA==

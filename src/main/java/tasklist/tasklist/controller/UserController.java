@@ -63,14 +63,14 @@ public class UserController {
 
     @GetMapping("/{userId}/tasks")
     @Operation(summary = "Get tasks by user id")
-    @PreAuthorize("@customSecurityExpression.canAccessUser(#id)")
+    @PreAuthorize("@customSecurityExpression.canAccessUser(#userId)")
     public List< TaskDto > getTasksByUserId(@PathVariable Long userId) {
         return taskMapper.toDto(taskService.getAllTasksByUserId(userId));
     }
 
     @PostMapping("/{userId}/tasks")
     @Operation(summary = "Create task for user")
-    @PreAuthorize("@customSecurityExpression.canAccessUser(#id)")
+    @PreAuthorize("@customSecurityExpression.canAccessUser(#userId)")
     public TaskDto createTask(@PathVariable Long userId, @Validated(OnCreate.class) @RequestBody TaskDto taskDto) {
         Task task = taskMapper.toEntity(taskDto);
         Task createdTask = taskService.create(task, userId);
