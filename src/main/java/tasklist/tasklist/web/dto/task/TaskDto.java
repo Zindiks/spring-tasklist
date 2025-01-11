@@ -13,8 +13,8 @@ import tasklist.tasklist.web.dto.validation.OnUpdate;
 
 import java.time.LocalDateTime;
 
-@Data
 @Schema(description = "Request DTO for Tasks")
+@Data
 public class TaskDto {
     @Schema(description = "Task id", example = "4")
     @NotNull(message = "Id is required", groups = {OnUpdate.class})

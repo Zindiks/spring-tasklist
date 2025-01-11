@@ -9,9 +9,9 @@ import org.hibernate.validator.constraints.Length;
 import tasklist.tasklist.web.dto.validation.OnCreate;
 import tasklist.tasklist.web.dto.validation.OnUpdate;
 
-@Data
 @Schema(description = "DTO representing a user in the system, including essential user details such as id, name," +
         " username, and password.")
+@Data
 public class UserDto {
     @Schema(description = "User's id", example = "1")
     @NotNull(message = "Id is required", groups = {OnCreate.class})
