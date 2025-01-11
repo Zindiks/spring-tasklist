@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    @Cacheable(value = "UserService::getByUsername", key = "#username")
+//    @Cacheable(value = "UserService::getByUsername", key = "#username")
     public User getByUsername(String username) {
         return userRepository.findByUsername(username).orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Caching(put = {
             @CachePut(value = "UserService::getById", key = "#user.id"),
-            @CachePut(value = "UserService::getByUsername", key = "#user.username")
+//            @CachePut(value = "UserService::getByUsername", key = "#user.username")
     })
     public User update(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));

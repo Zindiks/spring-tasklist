@@ -17,8 +17,7 @@ public class CustomSecurityExpression {
     private final UserService userService;
 
     public boolean canAccessUser(Long id) {
-
-        log.info("canAccessUser");
+        
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
 
